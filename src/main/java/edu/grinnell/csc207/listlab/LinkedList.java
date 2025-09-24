@@ -1,33 +1,35 @@
-package edu.grinnell.csc207.listlab;
-
-/**
- * A linked implementation of the list ADT.
- */
 public class LinkedList {
+    
     private static class Node {
         int value;
         Node next;
-        public Node (int value, Node next) {
+
+        public Node(int value, Node next) {
             this.value = value;
             this.next = next;
         }
     }
-
+    
     private Node first;
 
     public LinkedList() {
-        first = null; 
+        first = null;
     }
+
     /**
      * Adds <code>value</code> to the end of the list
      * 
      * @param value the value to add to the end of the list
      */
     public void add(int value) {
-        Node first = new Node(value, null);
-        Node cur = first.next;
-        while (cur != null) {
-
+        if (first == null) {
+            first = new Node(value, null);
+        } else {
+            Node cur = first;
+            while (cur.next != null) {
+                cur = cur.next;
+            }
+            cur.next = new Node(value, null);
         }
     }
 
@@ -35,7 +37,17 @@ public class LinkedList {
      * @return the number of elements in the list
      */
     public int size() {
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+        if (first == null) {
+            return 0;
+        } else {
+            int counter = 0;
+            Node cur = first;
+            while (cur.next != null) {
+                cur = cur.next;
+                counter++;
+            }
+            return counter;
+        }
     }
 
     /**
@@ -43,7 +55,14 @@ public class LinkedList {
      * @return the value at the specified <code>index</code>
      */
     public int get(int index) {
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        if (first == null) {
+            throw IllegalArgumentException();
+        }
+        Node cur = first;
+        for (int i = 0; i <= index; i++) {
+            cur = cur.next;
+        }
+        return cur.value;
     }
 
     /**
@@ -53,6 +72,17 @@ public class LinkedList {
      * @return the element at <code>index</code>
      */
     public int remove(int index) {
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        if (first == null) {
+            throw IllegalArgumentException();
+        }
+        Node prev = first;
+        Node cur = prev.next;
+        for (int i = 0; i < index; i++) {
+            prev = cur;
+            cur = cur.next;
+        }
+        prev.next = cur.next;
+        return cur.value;    
     }
 }
+
