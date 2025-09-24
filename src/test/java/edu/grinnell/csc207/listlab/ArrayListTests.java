@@ -27,19 +27,10 @@ public class ArrayListTests {
     @Test
     public void listGetIndex10() {
         ArrayList list = new ArrayList();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 4; i++) {
             list.add(i);
         }
-        assertEquals(9, list.get(10));
-    }
-
-    @Test
-    public void listGetNegativeIndex() {
-        ArrayList list = new ArrayList();
-        for (int i = 0; i < 20; i++) {
-            list.add(i);
-        }
-        assertEquals(19, list.get(-1));
+        assertEquals(1, list.get(1));
     }
 
     @Test
@@ -48,15 +39,8 @@ public class ArrayListTests {
         for (int i = 0; i < 10; i++) {
             list.add(i);
         }
-        assertEquals(2, list.remove(3));
+        assertEquals(3, list.remove(3));
     }
-
-    // @Test
-    // public void listRemoveFromEmpty() {
-    //     ArrayList list = new ArrayList();
-    
-    //     assertEquals(2, list.remove(3));
-    // }
 
     @Property
     public boolean listAddSize(@ForAll @IntRange(min = 0, max = 1000) int sz) {

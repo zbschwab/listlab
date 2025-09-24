@@ -1,19 +1,17 @@
 package edu.grinnell.csc207.listlab;
 
-import java.util.Arrays;
-
 /**
  * An array-based implementation of the list ADT.
  */
 public class ArrayList {
     private int[] arrlist;
-    private int size = 0;
+    private int size;
 
     public ArrayList () {
         this.arrlist = new int[10];
-        this.size = arrlist.length;
+        this.size = 0;
     }
-    
+
     /**
      * Adds <code>value</code> to the end of the list
      * 
@@ -21,9 +19,12 @@ public class ArrayList {
      */
     public void add(int value) {
         if (size == arrlist.length) {
-            arrlist = Arrays.copyOf(arrlist, arrlist.length * 2);
+            int[] arr = new int[size * 2];
+            System.arraycopy(arrlist, 0, arr, 0, size);
+            arrlist = arr;
         }
         arrlist[size] = value;
+        size++;
     }
 
     /**
@@ -39,7 +40,7 @@ public class ArrayList {
      * @return the value at the specified <code>index</code>
      */
     public int get(int index) {
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        return arrlist[index];
     }
 
     /**
@@ -49,6 +50,11 @@ public class ArrayList {
      * @return the element at <code>index</code>
      */
     public int remove(int index) {
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        int temp = arrlist[index];
+        arrlist[index] = 0;
+        System.arraycopy(arrlist, index+1, arrlist, index, arrlist.length-index-1);
+        size--;
+
+        return temp;
     }
 }
